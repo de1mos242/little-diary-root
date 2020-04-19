@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-config
+data:
+  DB_USERNAME: {{.Values.postgresql.postgresqlUsername}}
+  DB_NAME: {{.Values.postgresql.postgresqlDatabase}}
+  DB_ADDR: {{.Release.Name}}-{{.Values.postgresql.nameOverride}}
+  DB_PORT: "5432"
+
+  FLASK_ENV: {{.Values.properties.flaskEnv}}
+  JWT_ALGORITHM: {{.Values.properties.jwtAlgoritm}}

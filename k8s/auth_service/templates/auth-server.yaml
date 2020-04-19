@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-server
+  template:
+    metadata:
+      labels:
+        app: auth-server
+    spec:
+      containers:
+        - name: auth-server-contentainer
+          image: {{.Values.image.name}}:{{.Values.image.tag}}
+          command: ["gunicorn"]
+          args: ["-b", "0.0.0.0:5000", "auth_api.wsgi:app"]
+          envFrom:
+            - configMapRef:
+                name: auth-config
+            - secretRef:
+                name: auth-db-secrets
+            - secretRef:
+                name: auth-jwt-secrets
+          env:
+            - name: DATABASE_URI
+              value: postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_ADDR):$(DB_PORT)/$(DB_NAME)
+      initContainers:
+        - name: auth-server-run-migrations
+          image: {{.Values.image.name}}:{{.Values.image.tag}}
+          command: ["auth_api"]
+          args: ["db", "upgrade"]
+          envFrom:
+            - configMapRef:
+                name: auth-config
+            - secretRef:
+                name: auth-db-secrets
+          env:
+            - name: DATABASE_URI
+              value: postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_ADDR):$(DB_PORT)/$(DB_NAME)
+        - name: auth-server-init-app
+          image: {{.Values.image.name}}:{{.Values.image.tag}}
+          command: ["auth_api"]
+          args: ["init"]
+          envFrom:
+            - configMapRef:
+                name: auth-config
+            - secretRef:
+                name: auth-db-secrets
+          env:
+            - name: DATABASE_URI
+              value: postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_ADDR):$(DB_PORT)/$(DB_NAME)

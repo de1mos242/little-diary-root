@@ -1,0 +1,15 @@
+apiVersion: v2
+name: auth_service
+version: 0.0.2
+description: Little diary auth service
+type: application
+sources:
+  - https://github.com/de1mos242/little-diary-auth-service
+dependencies:
+  - name: postgresql
+    version: 8.8.0
+    repository: https://charts.bitnami.com/bitnami/
+maintainers:
+  - name: Yakovlev Denis
+    email: de1m0s242@gmail.com
+appVersion: "v0.0.3"
