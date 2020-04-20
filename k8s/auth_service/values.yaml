@@ -6,7 +6,7 @@ postgresql:
 
 image:
   name: de1m0s/little-diary-auth-service
-  tag: "0.0.5"
+  tag: "0.0.6"
 
 properties:
   flaskEnv: development
