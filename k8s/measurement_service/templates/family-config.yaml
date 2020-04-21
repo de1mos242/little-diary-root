@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: measurement-config
+data:
+  DB_USERNAME: {{.Values.postgresql.postgresqlUsername}}
+  DB_NAME: {{.Values.postgresql.postgresqlDatabase}}
+  DB_ADDR: {{.Release.Name}}-{{.Values.postgresql.nameOverride}}
+  DB_PORT: "5432"
+
+  MEASUREMENT_SERVICE_AUTH_SERVER_JWT_PUBLIC: {{.Values.properties.jwtPublicKey}}
+
+  MEASUREMENT_SERVICE_AUTH_SERVER_URL: {{.Values.integrations.authServerUrl}}
+  MEASUREMENT_SERVICE_FAMILY_SERVER_URL: {{.Values.integrations.familyServerUrl}}

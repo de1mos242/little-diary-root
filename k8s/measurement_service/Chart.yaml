@@ -1,0 +1,15 @@
+apiVersion: v2
+name: measurement_service
+version: 0.0.1
+description: Little diary measurement service
+type: application
+sources:
+  - https://github.com/de1mos242/little-diary-measurement-service
+dependencies:
+  - name: postgresql
+    version: 8.8.0
+    repository: https://charts.bitnami.com/bitnami/
+maintainers:
+  - name: Yakovlev Denis
+    email: de1m0s242@gmail.com
+appVersion: "v0.0.1"

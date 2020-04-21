@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: measurement-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: measurement-server
+  template:
+    metadata:
+      labels:
+        app: measurement-server
+    spec:
+      containers:
+        - name: measurement-server-contentainer
+          image: {{.Values.image.name}}:{{.Values.image.tag}}
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /status/health
+            initialDelaySeconds: 2
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /status/health
+            initialDelaySeconds: 15
+          envFrom:
+            - configMapRef:
+                name: measurement-config
+            - secretRef:
+                name: measurement-db-secrets
+            - secretRef:
+                name: measurement-auth-secrets
+          env:
+            - name: MEASUREMENT_SERVICE_DSN
+              value: postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_ADDR):$(DB_PORT)/$(DB_NAME)?sslmode=disable

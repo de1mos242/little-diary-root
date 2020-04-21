@@ -32,6 +32,19 @@ Install/Update family chart:
 
 `helm upgrade --install --namespace family-namespace family-chart k8s/family_service/`
 
+## Measurement service
+
+Initialize:
+
+```shell script
+kubectl create ns measurement-namespace
+helm dependency update k8s/measurement_service/
+```
+
+Install/Update measurement chart:
+
+`helm upgrade --install --namespace measurement-namespace measurement-chart k8s/measurement_service/`
+
 
 
 ## Dashboard
