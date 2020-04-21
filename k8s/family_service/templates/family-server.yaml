@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: family-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: family-server
+  template:
+    metadata:
+      labels:
+        app: family-server
+    spec:
+      containers:
+        - name: family-server-contentainer
+          image: {{.Values.image.name}}:{{.Values.image.tag}}
+          command: ["gunicorn"]
+          args: ["-b", "0.0.0.0:5000", "family_api.main:init_app", "--worker-class", "aiohttp.GunicornWebWorker"]
+          readinessProbe:
+            httpGet:
+              port: 5000
+              path: /status/health
+            initialDelaySeconds: 2
+          livenessProbe:
+            httpGet:
+              port: 5000
+              path: /status/health
+            initialDelaySeconds: 15
+          envFrom:
+            - configMapRef:
+                name: family-config
+            - secretRef:
+                name: family-db-secrets
+          env:
+            - name: DATABASE_URI
+              value: postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_ADDR):$(DB_PORT)/$(DB_NAME)
+
+      initContainers:
+        - name: family-server-run-migrations
+          image: {{.Values.image.name}}:{{.Values.image.tag}}
+          command: ["alembic"]
+          args: ["upgrade", "head"]
+          workingDir: /code/migrations
+          envFrom:
+            - configMapRef:
+                name: family-config
+            - secretRef:
+                name: family-db-secrets
+          env:
+            - name: PYTHONPATH
+              value: ".."
+            - name: DATABASE_URI
+              value: postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_ADDR):$(DB_PORT)/$(DB_NAME)

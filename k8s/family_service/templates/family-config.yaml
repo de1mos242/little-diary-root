@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: family-config
+data:
+  DB_USERNAME: {{.Values.postgresql.postgresqlUsername}}
+  DB_NAME: {{.Values.postgresql.postgresqlDatabase}}
+  DB_ADDR: {{.Release.Name}}-{{.Values.postgresql.nameOverride}}
+  DB_PORT: "5432"
+
+  JWT_PUBLIC_KEY: {{.Values.properties.jwtPublicKey}}
