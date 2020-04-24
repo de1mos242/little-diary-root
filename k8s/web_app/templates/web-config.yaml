@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+data:
+  AUTH_SERVICE_URL: {{.Values.integrations.authServerUrl}}
+  FAMILY_SERVICE_URL: {{.Values.integrations.familyServerUrl}}

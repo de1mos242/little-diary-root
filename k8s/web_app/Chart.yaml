@@ -1,0 +1,11 @@
+apiVersion: v2
+name: web_app
+version: 0.0.1
+description: Little diary web application
+type: application
+sources:
+  - https://github.com/de1mos242/little-diary-web-app
+maintainers:
+  - name: Yakovlev Denis
+    email: de1m0s242@gmail.com
+appVersion: "v0.0.1"

@@ -45,6 +45,17 @@ Install/Update measurement chart:
 
 `helm upgrade --install --namespace measurement-namespace measurement-chart k8s/measurement_service/`
 
+## Web application
+
+Initialize:
+
+```shell script
+kubectl create ns web-namespace
+```
+
+Install/Update measurement chart:
+
+`helm upgrade --install --namespace web-namespace web-chart k8s/web_app/`
 
 
 ## Dashboard
@@ -59,3 +70,8 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 To get token
 
 `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`
+
+
+or using minikube:
+
+`minikube dashboard`

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+        - name: web-server-contentainer
+          image: {{.Values.image.name}}:{{.Values.image.tag}}
+          readinessProbe:
+            httpGet:
+              port: 3000
+              path: /
+            initialDelaySeconds: 2
+          livenessProbe:
+            httpGet:
+              port: 3000
+              path: /
+            initialDelaySeconds: 15
+          envFrom:
+            - configMapRef:
+                name: web-config
