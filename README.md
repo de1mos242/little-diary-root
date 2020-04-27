@@ -6,6 +6,22 @@ Install repositories:
 helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
 
+## Dev server
+
+```shell script
+kubectl create ns ld-dev
+
+helm dependency update k8s/auth_service/
+helm dependency update k8s/family_service/
+helm dependency update k8s/measurement_service/
+
+helm upgrade --install -n ld-dev auth-chart k8s/auth_service/
+helm upgrade --install -n ld-dev family-chart k8s/family_service/
+helm upgrade --install -n ld-dev measurement-chart k8s/measurement_service/
+helm upgrade --install -n ld-dev web-chart k8s/web_app/
+helm upgrade --install -n ld-dev root-chart k8s/root_app/
+```
+
 ## Auth service
 
 Initialize:

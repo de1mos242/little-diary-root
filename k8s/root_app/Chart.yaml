@@ -1,0 +1,11 @@
+apiVersion: v2
+name: root_app
+version: 0.0.1
+description: Little diary root application
+type: application
+sources:
+  - https://github.com/de1mos242/little-diary-root-app
+maintainers:
+  - name: Yakovlev Denis
+    email: de1m0s242@gmail.com
+appVersion: "v0.0.1"

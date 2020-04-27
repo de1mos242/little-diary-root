@@ -1,0 +1,6 @@
+services:
+  authService: auth.ld.local
+  familyService: family.ld.local
+  measurementService: measurement.ld.local
+  webService: web.ld.local
+

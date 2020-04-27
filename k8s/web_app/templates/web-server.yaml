@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: web-server
+      annotations:
+        checksum/config: {{ include (print $.Chart.Name "/templates/web-config.yaml") . | sha256sum }}
     spec:
       containers:
         - name: web-server-contentainer

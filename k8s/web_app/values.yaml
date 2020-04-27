@@ -3,5 +3,5 @@ image:
   tag: "0.0.1"
 
 integrations:
-  authServerUrl: "http://192.168.99.101:30565"
-  familyServerUrl: "http://192.168.99.101:30287"
+  authServerUrl: "http://auth.ld.local"
+  familyServerUrl: "http://family.ld.local"
