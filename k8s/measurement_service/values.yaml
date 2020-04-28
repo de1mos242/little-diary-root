@@ -3,10 +3,14 @@ postgresql:
   postgresqlUsername: measurementuser
   postgresqlPassword: secretPassword
   postgresqlDatabase: measurementdb
+  persistence:
+    size: 1Gi
 
 image:
   name: de1m0s/little-diary-measurement-service
-  tag: "0.0.2"
+  tag: "0.0.3"
+
+replicasCount: 2
 
 properties:
   jwtPublicKey: -----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAro1sbZ6uzi80J5esSkLC\nmpKt7aG4M7ol39nbscvX0Li3WixXY7x8xbv9t3rtWj1gAnVgZHI/BNUw70IPs09y\nETA/ZG13Ucj2nnYNRDFkX1ahxLjV17zMZaYQkWdXyXM5qH/X8nmDYARJrOVoSy8h\nyQqkcNf38qXbnQu7Xtp3isPHVRpUj7zh1AYPgYTAV8BOpq8lOToi/e5FmKS1ygJ1\nLmF9lm9LXjk2uLkj5Y7z8jozG86c8UJ9UA2h9ZRuu4uB09mZL7NXgkWd0XyV7sUD\nUckQmTGf1cxeoRLZBxz7Og9dGgVja1AdzOxEZvrbhzH2piKpGg19rOjVnb8Ssj5N\ngwIDAQAB\n-----END PUBLIC KEY-----
@@ -15,5 +19,5 @@ integrations:
   authServiceUsername: measurement_tech_user
   authServicePassword: mkop
 
-  authServerUrl: "http://auth-service.auth-namespace:5000"
-  familyServerUrl: "http://family-service.family-namespace:5000"
+  authServerUrl: "http://auth-service:5000"
+  familyServerUrl: "http://family-service:5000"

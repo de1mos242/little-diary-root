@@ -3,10 +3,14 @@ postgresql:
   postgresqlUsername: authuser
   postgresqlPassword: secretPassword
   postgresqlDatabase: authdb
+  persistence:
+    size: 1Gi
 
 image:
   name: de1m0s/little-diary-auth-service
-  tag: "0.0.6"
+  tag: "0.0.7"
+
+replicasCount: 2
 
 properties:
   flaskEnv: development

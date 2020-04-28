@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: auth-server
 spec:
-  replicas: 1
+  replicas: {{.Values.replicasCount}}
   selector:
     matchLabels:
       app: auth-server
@@ -11,12 +11,19 @@ spec:
     metadata:
       labels:
         app: auth-server
+      annotations:
+        checksum/auth-config: {{ include (print $.Chart.Name "/templates/auth-config.yaml") . | sha256sum }}
+        checksum/auth-db-secrets: {{ include (print $.Chart.Name "/templates/auth-db-secrets.yaml") . | sha256sum }}
+        checksum/auth-jwt-secrets: {{ include (print $.Chart.Name "/templates/auth-jwt-secrets.yaml") . | sha256sum }}
     spec:
       containers:
         - name: auth-server-contentainer
           image: {{.Values.image.name}}:{{.Values.image.tag}}
           command: ["gunicorn"]
           args: ["-b", "0.0.0.0:5000", "auth_api.wsgi:app"]
+          ports:
+            - containerPort: 5000
+              name: auth
           readinessProbe:
             httpGet:
               port: 5000

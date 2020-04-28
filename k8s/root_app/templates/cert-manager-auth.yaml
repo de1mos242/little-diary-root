@@ -1,0 +1,9 @@
+{{ if .Values.useManageGKECerts}}
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: ld-cert-auth
+spec:
+  domains:
+    - auth.ld.de1mos.net
+{{ end }}

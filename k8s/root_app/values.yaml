@@ -4,3 +4,4 @@ services:
   measurementService: measurement.ld.local
   webService: web.ld.local
 
+useManageGKECerts: false

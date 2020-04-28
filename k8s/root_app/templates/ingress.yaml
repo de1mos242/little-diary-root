@@ -1,36 +1,41 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: little-diare-ingress
+  name: little-diary-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+{{/*    kubernetes.io/ingress.class: nginx*/}}
+    {{ if .Values.external.gkeStaticIpName }}
+    kubernetes.io/ingress.global-static-ip-name: {{.Values.external.gkeStaticIpName}}
+    networking.gke.io/managed-certificates: ld-cert-auth,ld-cert-family,ld-cert-measurement,ld-cert-web
+    kubernetes.io/ingress.allow-http: "false"
+    {{ end }}
 spec:
   rules:
     - host: {{.Values.services.webService}}
       http:
         paths:
-          - path: /
+          - path: /*
             backend:
               serviceName: web-service
               servicePort: 3000
     - host: {{.Values.services.authService}}
       http:
         paths:
-          - path: /
+          - path: /*
             backend:
               serviceName: auth-service
               servicePort: 5000
     - host: {{.Values.services.familyService}}
       http:
         paths:
-          - path: /
+          - path: /*
             backend:
               serviceName: family-service
               servicePort: 5000
     - host: {{.Values.services.measurementService}}
       http:
         paths:
-          - path: /
+          - path: /*
             backend:
               serviceName: measurement-service
               servicePort: 8080

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: measurement-server
 spec:
-  replicas: 1
+  replicas: {{.Values.replicasCount}}
   selector:
     matchLabels:
       app: measurement-server
@@ -11,10 +11,17 @@ spec:
     metadata:
       labels:
         app: measurement-server
+      annotations:
+        checksum/measurement-config: {{ include (print $.Chart.Name "/templates/measurement-config.yaml") . | sha256sum }}
+        checksum/measurement-db-secrets: {{ include (print $.Chart.Name "/templates/measurement-db-secrets.yaml") . | sha256sum }}
+        checksum/measurement-auth-secrets: {{ include (print $.Chart.Name "/templates/measurement-auth-secrets.yaml") . | sha256sum }}
     spec:
       containers:
         - name: measurement-server-contentainer
           image: {{.Values.image.name}}:{{.Values.image.tag}}
+          ports:
+            - containerPort: 8080
+              name: measurement
           readinessProbe:
             httpGet:
               port: 8080

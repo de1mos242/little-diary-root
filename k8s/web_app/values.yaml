@@ -2,6 +2,8 @@ image:
   name: de1m0s/little-diary-web-app
   tag: "0.0.1"
 
+replicasCount: 2
+
 integrations:
   authServerUrl: "http://auth.ld.local"
   familyServerUrl: "http://family.ld.local"
