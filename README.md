@@ -6,6 +6,16 @@ Install repositories:
 helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
 
+## Prod server
+
+### GKE
+
+```shell script
+gcloud compute url-maps import web-map-http --source gce/web-map-http.yaml --global --project little-diary-275518
+gcloud compute target-http-proxies create http-lb-proxy --url-map=web-map-http --global  --project little-diary-275518 
+```
+link http port forwarding for static ip to http-lb-proxy 
+
 ## Dev server
 
 ```shell script
