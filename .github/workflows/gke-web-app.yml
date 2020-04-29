@@ -14,7 +14,7 @@ jobs:
       uses: 'deliverybot/helm@v1'
       with:
         helm: 'helm3'
-        release: 'web-chart-cd'
+        release: 'web-chart'
         namespace: 'ld-dev'
         chart: 'k8s/web_app'
         token: '${{ github.token }}'
