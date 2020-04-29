@@ -1,0 +1,25 @@
+name: Deploy
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: 'Deploy'
+      uses: 'deliverybot/helm@v1'
+      with:
+        helm: 'helm3'
+        release: 'web-chart-cd'
+        namespace: 'ld-dev'
+        chart: 'k8s/web_app'
+        token: '${{ github.token }}'
+        values: |
+          integrations.authServerUrl: "https://auth.ld.de1mos.net"
+          integrations.familyServerUrl: "https://family.ld.de1mos.net"
+      env:
+        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
