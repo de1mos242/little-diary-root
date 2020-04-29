@@ -19,7 +19,8 @@ jobs:
         chart: 'k8s/web_app'
         token: '${{ github.token }}'
         values: |
-          integrations.authServerUrl: "https://auth.ld.de1mos.net"
-          integrations.familyServerUrl: "https://family.ld.de1mos.net"
+          integrations:
+            authServerUrl: "https://auth.ld.de1mos.net"
+            familyServerUrl: "https://family.ld.de1mos.net"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
