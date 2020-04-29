@@ -1,0 +1,26 @@
+name: Deploy auth service
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: 'Deploy'
+      uses: 'deliverybot/helm@v1'
+      with:
+        helm: 'helm3'
+        release: 'auth-chart'
+        namespace: 'ld-dev'
+        chart: 'k8s/auth_service'
+        token: '${{ github.token }}'
+        values: |
+          postgresql.postgresqlPassword: "${{ secrets.AUTH_POSTGRES_PASSWORD }}"
+          properties.jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
+          properties.jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
+      env:
+        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
