@@ -16,6 +16,8 @@ gcloud compute target-http-proxies create http-lb-proxy --url-map=web-map-http -
 ```
 link http port forwarding for static ip to http-lb-proxy 
 
+https://gravitational.com/blog/kubectl-gke/
+
 ## Dev server
 
 ```shell script
