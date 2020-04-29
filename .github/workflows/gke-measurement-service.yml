@@ -1,4 +1,4 @@
-name: Deploy auth service
+name: Deploy measurement service
 on:
   release:
     types:
@@ -14,17 +14,18 @@ jobs:
       uses: 'deliverybot/helm@v1'
       with:
         helm: 'helm3'
-        release: 'auth-chart'
+        release: 'measurement-chart'
         namespace: 'ld-dev'
-        chart: 'k8s/auth_service'
+        chart: 'k8s/measurement_service'
         token: '${{ github.token }}'
         values: |
           postgresql:
-            postgresqlPassword: "${{ secrets.AUTH_DB_PASSWORD }}"
+            postgresqlPassword: "${{ secrets.MEASUREMENT_DB_PASSWORD }}"
           properties:
-            jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:
-            tag: "0.0.8"
+            tag: "0.0.3"
+          integrations:
+            authServicePassword: "${{ secrets.MEASUREMENT_USER_PASSWORD }}"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
