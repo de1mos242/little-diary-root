@@ -19,9 +19,12 @@ jobs:
         chart: 'k8s/auth_service'
         token: '${{ github.token }}'
         values: |
-          postgresql.postgresqlPassword: "${{ secrets.AUTH_POSTGRES_PASSWORD }}"
-          properties.jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
-          properties.jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
-          image.tag: "0.0.8"
+          postgresql:
+            postgresqlPassword: "${{ secrets.AUTH_POSTGRES_PASSWORD }}"
+          properties:
+            jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
+            jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
+          image:
+            tag: "0.0.8"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
