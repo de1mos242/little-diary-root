@@ -1,8 +1,7 @@
 name: Deploy web app
 on:
-  release:
-    types:
-      - published
+  repository_dispatch:
+    types: [web-app-released]
 
 jobs:
   deployment:
@@ -22,5 +21,7 @@ jobs:
           integrations:
             authServerUrl: "https://auth.ld.de1mos.net"
             familyServerUrl: "https://family.ld.de1mos.net"
+          image:
+            tag: "${{ github.event.client_payload.version }}"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'

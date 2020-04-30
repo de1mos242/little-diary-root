@@ -1,8 +1,7 @@
 name: Deploy measurement service
 on:
-  release:
-    types:
-      - published
+  repository_dispatch:
+    types: [measurement-service-released]
 
 jobs:
   deployment:
@@ -24,7 +23,7 @@ jobs:
           properties:
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:
-            tag: "0.0.3"
+            tag: "${{ github.event.client_payload.version }}"
           integrations:
             authServicePassword: "${{ secrets.MEASUREMENT_USER_PASSWORD }}"
       env:
