@@ -1,6 +1,7 @@
 name: Deploy measurement service
 on:
   push:
+    branches: ['master']
   repository_dispatch:
     types: [measurement-service-released]
 

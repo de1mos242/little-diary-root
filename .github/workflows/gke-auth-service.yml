@@ -1,6 +1,7 @@
 name: Deploy auth service
 on:
   push:
+    branches: ['master']
   repository_dispatch:
     types: [auth-service-released]
 

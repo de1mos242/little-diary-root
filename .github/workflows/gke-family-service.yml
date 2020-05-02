@@ -1,6 +1,7 @@
 name: Deploy family service
 on:
   push:
+    branches: ['master']
   repository_dispatch:
     types: [family-service-released]
 
