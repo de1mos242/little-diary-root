@@ -24,6 +24,6 @@ jobs:
             authServerUrl: "https://auth.ld.de1mos.net"
             familyServerUrl: "https://family.ld.de1mos.net"
           image:
-            tag: "${{ github.event.client_payload.version | default "latest" }}"
+            tag: ${{ quote github.event.client_payload.version | default "latest" }}
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'

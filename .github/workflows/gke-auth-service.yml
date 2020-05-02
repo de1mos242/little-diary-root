@@ -30,6 +30,6 @@ jobs:
             jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:
-            tag: "${{ github.event.client_payload.version | default "latest" }}"
+            tag: ${{ quote github.event.client_payload.version | default "latest" }}
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
