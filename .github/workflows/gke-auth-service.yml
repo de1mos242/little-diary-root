@@ -22,10 +22,14 @@ jobs:
         values: |
           postgresql:
             postgresqlPassword: "${{ secrets.AUTH_DB_PASSWORD }}"
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
           properties:
             jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:
-            tag: "${{ github.event.client_payload.version }}"
+            tag: "${{ github.event.client_payload.version | default "latest" }}"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
