@@ -18,6 +18,6 @@ jobs:
         namespace: 'ld-dev'
         chart: 'k8s/auth_service'
         token: '${{ github.token }}'
-        value-files: "gke-auth-service-values.yaml"
+        value-files: ".github/workflows/gke-auth-service-values.yaml"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
