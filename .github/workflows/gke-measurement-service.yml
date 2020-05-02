@@ -1,5 +1,6 @@
 name: Deploy measurement service
 on:
+  push:
   repository_dispatch:
     types: [measurement-service-released]
 
@@ -20,6 +21,10 @@ jobs:
         values: |
           postgresql:
             postgresqlPassword: "${{ secrets.MEASUREMENT_DB_PASSWORD }}"
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
           properties:
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:

@@ -1,5 +1,6 @@
 name: Deploy family service
 on:
+  push:
   repository_dispatch:
     types: [family-service-released]
 
@@ -20,6 +21,10 @@ jobs:
         values: |
           postgresql:
             postgresqlPassword: "${{ secrets.FAMILY_DB_PASSWORD }}"
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
           properties:
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:

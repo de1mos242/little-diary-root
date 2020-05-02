@@ -1,5 +1,6 @@
 name: Deploy web app
 on:
+  push:
   repository_dispatch:
     types: [web-app-released]
 
