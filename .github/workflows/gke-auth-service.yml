@@ -18,6 +18,16 @@ jobs:
         namespace: 'ld-dev'
         chart: 'k8s/auth_service'
         token: '${{ github.token }}'
-        value-files: ".github/workflows/gke-auth-service-values.yaml"
+        values: |
+          postgresql:
+            postgresqlPassword: "${{ secrets.AUTH_DB_PASSWORD }}"
+            resources:
+              requests:
+                cpu: "0.1"
+          properties:
+            jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
+            jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
+          image:
+            tag: "${{ github.event.client_payload.version }}"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
