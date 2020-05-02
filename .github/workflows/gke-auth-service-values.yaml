@@ -1,8 +1,7 @@
 postgresql:
   postgresqlPassword: "${{ secrets.AUTH_DB_PASSWORD }}"
   resources:
-    memory: 256Mi
-    cpu: 100m
+    cpu: 0.1
   properties:
     jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
     jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
