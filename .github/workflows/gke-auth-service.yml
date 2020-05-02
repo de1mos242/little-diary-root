@@ -20,11 +20,11 @@ jobs:
         token: '${{ github.token }}'
         values: |
           postgresql:
-            postgresqlPassword: "${{ secrets.AUTH_DB_PASSWORD }}"
             resources:
               requests:
                 memory: 256Mi
                 cpu: 100m
+            postgresqlPassword: "${{ secrets.AUTH_DB_PASSWORD }}"
           properties:
             jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
