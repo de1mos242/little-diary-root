@@ -1,0 +1,36 @@
+name: Deploy root service
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: 'Deploy'
+      uses: 'deliverybot/helm@v1'
+      with:
+        helm: 'helm3'
+        release: 'root-chart'
+        namespace: 'ld-dev'
+        chart: 'k8s/root_app'
+        token: '${{ github.token }}'
+        values: |
+          integrations:
+            authServerUrl: "https://auth.ld.de1mos.net"
+            familyServerUrl: "https://family.ld.de1mos.net"
+          image:
+            tag: "${{ github.event.client_payload.version }}"
+
+          services:
+            authService: "auth.ld.de1mos.net"
+            familyService: "family.ld.de1mos.net"
+            measurementService="measurement.ld.de1mos.net"
+            webService="ld.de1mos.net"
+          external:
+            gkeStaticIpName: "web-static-ip"
+            useManageGKECerts: true
+      env:
+        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
