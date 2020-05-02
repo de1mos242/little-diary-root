@@ -1,7 +1,5 @@
 name: Deploy auth service
 on:
-  push:
-    branches: ['master']
   repository_dispatch:
     types: [auth-service-released]
 
@@ -30,6 +28,6 @@ jobs:
             jwtPrivateKey: "${{ secrets.JWT_PRIVATE_KEY }}"
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:
-            tag: ${{ quote github.event.client_payload.version | default "latest" }}
+            tag: "${{ github.event.client_payload.version }}"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'

@@ -1,7 +1,5 @@
 name: Deploy family service
 on:
-  push:
-    branches: ['master']
   repository_dispatch:
     types: [family-service-released]
 
@@ -29,6 +27,6 @@ jobs:
           properties:
             jwtPublicKey: "${{ secrets.JWT_PUBLIC_KEY }}"
           image:
-            tag: ${{ quote github.event.client_payload.version | default "latest" }}
+            tag: "${{ github.event.client_payload.version }}"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'

@@ -1,7 +1,5 @@
 name: Deploy web app
 on:
-  push:
-    branches: ['master']
   repository_dispatch:
     types: [web-app-released]
 
@@ -24,6 +22,6 @@ jobs:
             authServerUrl: "https://auth.ld.de1mos.net"
             familyServerUrl: "https://family.ld.de1mos.net"
           image:
-            tag: ${{ quote github.event.client_payload.version | default "latest" }}
+            tag: "${{ github.event.client_payload.version }}"
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
