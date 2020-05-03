@@ -26,6 +26,6 @@ jobs:
             webService: "ld.de1mos.net"
           external:
             gkeStaticIpName: "web-static-ip"
-            useManageGKECerts: true
+          useManageGKECerts: true
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
