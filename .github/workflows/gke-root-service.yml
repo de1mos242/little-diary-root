@@ -6,8 +6,9 @@ on:
 jobs:
   deployment:
     runs-on: 'ubuntu-latest'
+
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v11
 
     - name: 'Deploy'
       uses: 'deliverybot/helm@v1'
