@@ -13,28 +13,24 @@ spec:
     - host: {{.Values.services.webService}}
       http:
         paths:
-          - path: /*
-            backend:
+          - backend:
               serviceName: web-service
               servicePort: 3000
     - host: {{.Values.services.authService}}
       http:
         paths:
-          - path: /*
-            backend:
+          - backend:
               serviceName: auth-service
               servicePort: 5000
     - host: {{.Values.services.familyService}}
       http:
         paths:
-          - path: /*
-            backend:
+          - backend:
               serviceName: family-service
               servicePort: 5000
     - host: {{.Values.services.measurementService}}
       http:
         paths:
-          - path: /*
-            backend:
+          - backend:
               serviceName: measurement-service
               servicePort: 8080

@@ -5,3 +5,6 @@ services:
   webService: web.ld.local
 
 useManageGKECerts: false
+
+external:
+  gkeStaticIpName: ""
