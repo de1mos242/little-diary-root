@@ -88,7 +88,7 @@ Deployed application runs in GKE cluster through GitHub Actions. There are 4 wor
 
 They listen to webhook events, that fired by workflows in corresponding repositories after deployment image to DockerHub.
 
-Workflow `gke-root-service.yaml` deploys ingress and SSL certificate configurations into GKE. 
+Workflow `gke-root-service.yaml` deploys ingress and SSL certificate configurations into GKE. Runs on push into master branch. 
 
 #### GKE usage specifics
 * Using GCE ingress controller
