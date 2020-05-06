@@ -95,4 +95,6 @@ Workflow `gke-root-service.yaml` deploys ingress and SSL certificate configurati
 * For SSL Certificate management GCE is used
 * Used static external ip address with privilege level as ingress requires this level
 * It needs to create custom load balancer in GCE with redirection rule from http to https and link it to static external ip address  
-* Script to create kubeconfig for deployment from GitHub got from [here](https://gravitational.com/blog/kubectl-gke/) 
+* Script to create kubeconfig for deployment from GitHub got from [here](https://gravitational.com/blog/kubectl-gke/)
+* All backend services provide health checks at `/status/healt` endpoints, 
+but it needs an additional configuration at GCE ingress to perform health checks at custom path 
