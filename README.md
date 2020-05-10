@@ -4,7 +4,7 @@ Little diary helps to track children measures and activities, such as weight, he
 User can register a family, add members to it by generating links and register babies inside family. 
 For every baby user can add measurements with time link. 
 
-A working app placed here: http://ld.de1mos.net/
+A working app placed here: https://ld.de1mos.net/
 
 Issues are managed in corresponding projects. 
 For Kanban board [GitHub Project](https://github.com/users/de1mos242/projects/1) is used.
